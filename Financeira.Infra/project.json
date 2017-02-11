@@ -1,0 +1,37 @@
+{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.1.0"
+    },
+    "Microsoft.EntityFrameworkCore": "1.1.0",
+    "Microsoft.EntityFrameworkCore.SQlite": "1.1.0",
+    "Pomelo.EntityFrameworkCore.MySql": "1.1.0-*",
+    "Microsoft.EntityFrameworkCore.InMemory": "1.0.0",
+    "Autofac": "4.3.0",
+    "Autofac.Extensions.DependencyInjection": "4.0.0",
+    "Financeira.Domain": "1.0.0-*",
+    "Financeira.Application": "1.0.0-*",
+    "Microsoft.EntityFrameworkCore.Design": "1.1.0-preview1-final"
+  },
+
+  "frameworks": {
+    "netcoreapp1.1": {
+      "imports": [
+        "dotnet5.6",
+        "portable-net45+win8"
+      ]
+    }
+  },
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+  "tooling": {
+    "defaultNamespace": "Financeira.Infra"
+  },
+  "tools": {
+    "Microsoft.EntityFrameworkCore.Tools.DotNet": "1.1.0-preview4-final"
+ }
+}

@@ -1,0 +1,19 @@
+.button-fixed {
+  position: fixed !important;
+}
+
+md-dialog-content  {
+  padding: 10px;
+}
+
+md-content {
+	max-height: 550px;
+	height: 100%;
+}
+
+footer {
+	background-color: #ccc;
+}
+.logo-img {
+	width: 23%;
+}

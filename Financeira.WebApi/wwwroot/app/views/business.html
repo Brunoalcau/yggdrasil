@@ -1,0 +1,141 @@
+<md-card>
+    <form name="formFilter">
+        <md-card-content>
+            <div layout-gt-sm="row">
+                <md-input-container flex="25">
+                    <label>Inicial</label>
+                    <md-datepicker name="date" ng-model="filterObj.start" md-placeholder="Enter date" required=""></md-datepicker>    
+                    <div ng-messages="formFilter.start.$error">
+                        <div ng-message="required">Campo Obrigatório.</div>
+                    </div>
+                </md-input-container>   
+            <md-input-container flex="25">
+                    <label>Final</label>
+                    <md-datepicker name="date" ng-model="filterObj.end" md-placeholder="Enter date" required=""></md-datepicker>    
+                    <div ng-messages="formFilter.end.$error">
+                        <div ng-message="required">Campo Obrigatório.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="25">
+                <md-switch ng-click="filter(filterObj)" ng-model="filterObj.isGroup" aria-label="Switch 1">
+                    Agrupamento por categoria
+                </md-switch>    
+                </md-input-container>
+                <md-input-container>
+                    <md-button ng-click="filter(filterObj)" class="md-raised md-primary" ng-click="">Filtrar</md-button>  
+                </md-input-container>
+            </div>
+        </md-card-content>
+    </form>
+</md-card>
+
+
+<md-card>
+<div ng-init="init()">
+    <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length && !filterObj.isGroup">
+        <div class="md-toolbar-tools">
+            <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+            <span flex></span>
+            <md-button ng-click="delete(selected)" class="md-icon-button">
+                <md-icon>delete</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-table-container ng-init="getAll()">
+      <table md-table md-row-select="true" multiple="{{true}}" ng-model="selected" md-progress="promise">
+        <thead md-head md-order="query.order">
+          <tr md-row>
+            <th md-column></th>
+            <th md-column md-numeric ><span>Valor</span></th>
+            <th md-column ><span>Categoria</span></th>
+            <th md-column><span>Data</span></th>
+            <th md-column>Observação</th>
+            <th md-column>Tipo</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row md-select-id="id" md-row md-select="b" md-auto-select="true"  md-auto-select ng-repeat="b in business">
+            <td md-cell>
+                <md-button ng-click="openRightMenu(b.id)" class="md-icon-button">
+                    <md-icon>mode_edit</md-icon>
+                </md-button>
+            </td>
+            <td md-cell>{{b.value | number: 0}}</td>
+            <td md-cell>{{b.category}}</td>
+            <td md-cell>{{b.date | date : 'dd/MM/yyyy'}}</td>
+            <td md-cell>{{b.type | types}}</td>
+            <td md-cell>{{b.observation}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+</div>
+</md-card>
+<md-button ng-click="modalSave()" class="md-fab md-primary md-fab-bottom-right button-fixed"  aria-label="download photo" >
+    <md-icon>add</md-icon>
+</md-button>
+
+<md-sidenav md-component-id="right" class="md-sidenav-right">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 class="md-flex">Editar</h2>
+      </div>
+    </md-toolbar>
+    <md-content flex="" layout-padding="">
+        <form name="businessForm">        
+            <div layout-gt-sm="row">
+                <md-input-container flex="100">
+                    <label>Valor</label>
+                    <input type="number" required="" name="value" ng-model="businessEdit.value">
+                    <div ng-messages="businessForm.value.$error">
+                        <div ng-message="required">Isso é necessário.</div>
+                    </div>
+                </md-input-container>                
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container flex="100">
+                    <label>Data</label>
+                    <md-datepicker name="date" ng-model="businessEdit.date" md-placeholder="Enter date" required=""></md-datepicker>    
+                    <div ng-messages="businessForm.date.$error">
+                        <div ng-message="required">Campo Obrigatório.</div>
+                    </div>
+                </md-input-container>   
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container flex="100">
+                    <label>Categoria</label>
+                    <input required=""  name="category" ng-model="businessEdit.category">
+                    <div ng-messages="businessForm.category.$error">
+                        <div ng-message="required">Campo Obrigatório.</div>
+                    </div>
+                </md-input-container>                
+            </div>
+            <div layout="row">
+                <md-input-container style="margin-right: 10px;" flex="100">
+                    <label>Tipo</label>
+                    <md-select ng-model="businessEdit.type" required>
+                         <md-option ng-repeat="type in types" value="{{type.id}}">{{type.name}}</md-option>
+                    </md-select>
+                    <div ng-messages="businessForm.type.$error">
+                        <div ng-message="required">Campo Obrigatório.</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex="100">
+                    <label>Obeservação</label>
+                    <input required="" name="observation" ng-model="businessEdit.observation">
+                    <div ng-messages="FormBusiness.observation.$error">
+                        <div ng-message="required">Campo Obrigatório.</div>
+                    </div>
+                </md-input-container>
+            </div>        
+            <md-dialog-actions layout="row">
+              <span flex></span>
+              
+              <md-button ng-disabled= "!businessForm.$valid" ng-click="edit(businessEdit)">
+                Salvar
+              </md-button>
+        </form>
+    </md-content>
+</md-sidenav>

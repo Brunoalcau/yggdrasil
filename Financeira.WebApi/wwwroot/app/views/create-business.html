@@ -1,0 +1,60 @@
+<md-toolbar >
+  <div class="md-toolbar-tools" >
+    <h2 class="md-flex">{{type}}</h2>
+  </div>
+</md-toolbar>
+<form name="businessForm">
+<md-dialog-content>
+	<div layout-gt-sm="row">
+		<md-input-container flex="50">
+			<label>Valor</label>
+			<input type="number" required="" name="value" ng-model="business.value">
+			<div ng-messages="businessForm.value.$error">
+			    <div ng-message="required">Isso é necessário.</div>
+			</div>
+		</md-input-container>
+		<md-input-container>
+			<md-datepicker name="date" ng-model="business.date" md-placeholder="Enter date" required=""></md-datepicker>	
+			<div ng-messages="businessForm.date.$error">
+                <div ng-message="required">Campo Obrigatório.</div>
+            </div>
+		</md-input-container>	
+    </div>
+    <div layout="row">
+        <md-input-container flex="50">
+            <label>Categoria</label>
+            <input required=""  name="category" ng-model="business.category">
+            <div ng-messages="businessForm.category.$error">
+                <div ng-message="required">Campo Obrigatório.</div>
+            </div>
+        </md-input-container>
+        <md-input-container style="margin-right: 10px;" flex="50">
+        <label>Tipo</label>
+        <md-select ng-model="business.type" required>
+             <md-option ng-repeat="type in types" value="{{type.id}}">{{type.name}}</md-option>
+        </md-select>
+            <div ng-messages="businessForm.type.$error">
+                <div ng-message="required">Campo Obrigatório.</div>
+            </div>
+    	</md-input-container>
+    </div>
+    <div layout="row">
+        <md-input-container flex="100">
+            <label>Obeservação</label>
+            <input required="" name="observation" ng-model="business.observation">
+            <div ng-messages="FormBusiness.observation.$error">
+                <div ng-message="required">Campo Obrigatório.</div>
+            </div>
+        </md-input-container>
+	</div>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+	  <span flex></span>
+	  <md-button ng-click="cancel()">
+	   Cancelar
+	  </md-button>
+	  <md-button ng-disabled= "!businessForm.$valid" ng-click="save(business)">
+	    Salvar
+	  </md-button>
+	</md-dialog-actions>
+</form>
